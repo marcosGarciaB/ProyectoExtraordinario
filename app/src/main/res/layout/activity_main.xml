@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="8dp"
+        android:background="?attr/colorPrimary">
+
+        <ImageButton
+            android:id="@+id/homeID"
+            android:src="@drawable/home"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="seleccionarFragment"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
+
+        <ImageButton
+            android:id="@+id/escudoID"
+            android:src="@drawable/iconoapp"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="seleccionarFragment"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
+
+        <ImageButton
+            android:id="@+id/mercadoID"
+            android:src="@drawable/mercado"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="seleccionarFragment"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
+
+        <ImageButton
+            android:id="@+id/plantillaID"
+            android:src="@drawable/plantilla"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="seleccionarFragment"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contenedor1ID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.fragment.app.FragmentContainerView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/contenedor2ID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </androidx.fragment.app.FragmentContainerView>
+</LinearLayout>
