@@ -10,11 +10,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
 
     private String urlJugadores = "https://api.myjson.online/v1/records/f8023be6-48e4-4f1d-ab57-90e2ced1c118";
-    private ImageButton btPlantilla, btMercado, btEscudo, btHome;
+    private SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,31 +23,37 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        btPlantilla = findViewById(R.id.plantillaID);
-        btMercado = findViewById(R.id.mercadoID);
-        btEscudo = findViewById(R.id.escudoID);
-        btHome = findViewById(R.id.homeID);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor2ID, new FragmentHome()).commit();
+        cargarFragment(new FragmentBarraTareas(), R.id.contenedor1ID);
+        cargarFragment(new FragmentHome(), R.id.contenedor2ID);
 
+        sharedViewModel.getBotonSeleccionado().observe(this, botonID -> {
+            Fragment f = null;
+
+            switch (botonID) {
+                case 1:
+                    f = new FragmentHome();
+                    break;
+
+                case 2:
+                    f = new FragmentEscudo();
+                    break;
+
+                case 3:
+                    f = new FragmentMercado();
+                    break;
+
+                case 4:
+                    f = new FragmentPlantilla();
+                    break;
+            }
+
+            cargarFragment(f, R.id.contenedor2ID);
+        });
     }
 
-    public void seleccionarFragment(View v) {
-        Fragment f = null;
-
-        if (v.getId() == R.id.plantillaID) {
-            f = new FragmentPlantilla();
-
-        } else if (v.getId() == R.id.homeID) {
-            f = new FragmentHome();
-
-        } else if (v.getId() == R.id.mercadoID) {
-            f = new FragmentMercado();
-
-        } else {
-            f = new FragmentEscudo();
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedor2ID, f).commit();
+    public void cargarFragment(Fragment fragment, int contenedorID) {
+        getSupportFragmentManager().beginTransaction().replace(contenedorID, fragment).commit();
     }
-
 }
