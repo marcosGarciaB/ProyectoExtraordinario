@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,6 +34,7 @@ public class FragmentEscudo extends Fragment {
     private ImageView iEscudo;
     private TextView tvEquipo, tvLiga;
     private ImageButton ibBack, ibNext;
+    private Button btConfirmar;
 
     private String urlEscudos = "https://api.myjson.online/v1/records/987c3e96-c0e7-4a43-984e-6d867f24a5b1";
 
@@ -40,7 +43,8 @@ public class FragmentEscudo extends Fragment {
     private ArrayList<String> nombresLigas;
     private ArrayList<Liga> ligasList;
 
-    private int contador = 0;
+    private int ligaIndex = 0;
+    private int equipoIndex = 0;
 
     public FragmentEscudo() {
         // Required empty public constructor
@@ -66,21 +70,41 @@ public class FragmentEscudo extends Fragment {
         tvLiga = view.findViewById(R.id.nombreLigaID);
         ibBack = view.findViewById(R.id.anteriorID);
         ibNext = view.findViewById(R.id.siguienteID);
+        btConfirmar = view.findViewById(R.id.confirmarID);
 
         consultaEscudos(getContext());
 
         ibNext.setOnClickListener(v -> {
-            if (contador < ligasList.size() - 1) {
-                contador++;
+            if (!ligasList.isEmpty()) {
+                Liga liga = ligasList.get(ligaIndex);
+
+                if (equipoIndex < liga.getEquipos().size() - 1) {
+                    equipoIndex++;
+                } else if (ligaIndex < ligasList.size() - 1) {
+                    ligaIndex++;
+                    equipoIndex = 0;
+                }
                 seleccionEquipo();
             }
         });
 
         ibBack.setOnClickListener(v -> {
-            if (contador > 0) {
-                contador--;
+            if (!ligasList.isEmpty()) {
+                if (equipoIndex > 0) {
+                    equipoIndex--;
+
+                } else if (ligaIndex > 0) {
+                    ligaIndex--;
+                    equipoIndex = ligasList.get(ligaIndex).getEquipos().size() - 1;
+                }
                 seleccionEquipo();
             }
+        });
+
+        //Poner un botón para seleccionar el escudo y que se actualice en el nombre, con un aviso de que se ha actualizado
+        //correctamente.
+        btConfirmar.setOnClickListener(v -> {
+            Toast.makeText(getContext(), " Se ha confirmado el escudo", Toast.LENGTH_SHORT).show();
         });
 
         return view;
@@ -116,9 +140,11 @@ public class FragmentEscudo extends Fragment {
                                 }
 
                                 Liga liga = new Liga(nombreLiga, new ArrayList<>(escudosList), new ArrayList<>(nombresEquipos));
-                                //Log.e("TAG", "onResponse: " + liga.toString());
+                                Log.e("TAG", "onResponse: " + liga.toString());
 
                                 ligasList.add(liga);
+                                escudosList.clear();
+                                nombresEquipos.clear();
                             }
 
                             seleccionEquipo();
@@ -140,14 +166,14 @@ public class FragmentEscudo extends Fragment {
     }
 
     public void seleccionEquipo() {
-        if (ligasList.size() > 0) {
-            Liga liga = ligasList.get(contador);
+        if (!ligasList.isEmpty()) {
+            Liga liga = ligasList.get(ligaIndex); //
             tvLiga.setText(liga.getNombre());
-            Picasso.get().load(liga.getEscudos().get(0)).into(iEscudo);
-            tvEquipo.setText(liga.getEquipos().get(0));
+
+            if (!liga.getEquipos().isEmpty() && !liga.getEscudos().isEmpty()) {
+                tvEquipo.setText(liga.getEquipos().get(equipoIndex));
+                Picasso.get().load(liga.getEscudos().get(equipoIndex)).into(iEscudo);
+            }
         }
     }
-
-    //Poner un botón para seleccionar el escudo y que se actualice en el nombre, con un aviso de que se ha actualizado
-    //correctamente.
 }
