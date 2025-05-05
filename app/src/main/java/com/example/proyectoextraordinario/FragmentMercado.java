@@ -1,6 +1,7 @@
 package com.example.proyectoextraordinario;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -55,8 +56,18 @@ public class FragmentMercado extends Fragment {
         jugadorList = new ArrayList<>();
         estadisticasList = new ArrayList<>();
 
+        consultaTodos(getContext());
+
         bindingSpinner(getContext());
 
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            Intent intent = new Intent(getActivity(), JugadorDetallado.class);
+
+            intent.putParcelableArrayListExtra("jugadores", jugadorList);
+
+
+            startActivity(intent);
+        });
 
         return view;
     }
@@ -70,6 +81,9 @@ public class FragmentMercado extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String seleccionado = parent.getItemAtPosition(position).toString();
+
+                jugadorList.clear();
+                estadisticasList.clear();
 
                 switch (seleccionado) {
                     case "Defensas":
@@ -85,9 +99,7 @@ public class FragmentMercado extends Fragment {
                         break;
 
                     case "Todos":
-                        consultaDefensas(getContext());
-                        consultaCentrocampistas(getContext());
-                        consultaDelanteros(getContext());
+                        consultaTodos(getContext());
                         break;
                 }
             }
@@ -318,4 +330,14 @@ public class FragmentMercado extends Fragment {
         );
         requestQueue.add(jsonObjectRequest);
     }
+
+    public void consultaTodos(Context context) {
+        jugadorList.clear();
+        estadisticasList.clear();
+
+        consultaDefensas(context);
+        consultaCentrocampistas(context);
+        consultaDelanteros(context);
+    }
+
 }

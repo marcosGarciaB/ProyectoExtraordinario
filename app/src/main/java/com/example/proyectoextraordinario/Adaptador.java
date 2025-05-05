@@ -49,26 +49,32 @@ public class Adaptador extends BaseAdapter {
         TextView valoracion = convertView.findViewById(R.id.valorCartaID);
         TextView posicion = convertView.findViewById(R.id.posicionID);
         TextView nombre = convertView.findViewById(R.id.nombreJugadorID);
+        TextView valorMercado = convertView.findViewById(R.id.precioID);
 
+        /**
         TextView ritmo = convertView.findViewById(R.id.ritmoID);
         TextView tiro = convertView.findViewById(R.id.tiroID);
         TextView pase = convertView.findViewById(R.id.paseID);
         TextView defensa = convertView.findViewById(R.id.defensaID);
         TextView fisico = convertView.findViewById(R.id.fisicoID);
         TextView regate = convertView.findViewById(R.id.regateID);
+        */
 
         Picasso.get().load(jugador.get(position).getFoto()).into(fotoJugador);
         Picasso.get().load(jugador.get(position).getEscudo()).into(escudo);
         nombre.setText(jugador.get(position).getNombre());
         posicion.setText(jugador.get(position).getPosicion());
         valoracion.setText(jugador.get(position).getValor_carta());
+        valorMercado.setText(jugador.get(position).getValor_mercado());
 
+        /**
         ritmo.setText(estadisticas.get(position).getRitmo());
         tiro.setText(estadisticas.get(position).getTiro());
         defensa.setText(estadisticas.get(position).getDefensa());
         pase.setText(estadisticas.get(position).getPase());
         fisico.setText(estadisticas.get(position).getFisico());
         regate.setText(estadisticas.get(position).getRegate());
+        */
 
         return convertView;
     }
