@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 
 public class FragmentBarraTareas extends Fragment {
 
-    private ImageButton btPlantilla, btMercado, btEscudo, btHome;
+    private ImageButton btPlantilla, btMercado, btEscudo, btHome, btAjustes;
     private SharedViewModel sharedViewModel;
 
     public FragmentBarraTareas() {
@@ -36,11 +36,13 @@ public class FragmentBarraTareas extends Fragment {
         btMercado = view.findViewById(R.id.mercadoID);
         btEscudo = view.findViewById(R.id.escudoID);
         btHome = view.findViewById(R.id.homeID);
+        btAjustes = view.findViewById(R.id.ajustesID);
 
         btHome.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(1));
         btEscudo.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(2));
         btMercado.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(3));
         btPlantilla.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(4));
+        btAjustes.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(5));
 
         return view;
     }

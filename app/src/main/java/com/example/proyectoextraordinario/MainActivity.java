@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     f = new FragmentPlantilla();
                     break;
+
+                case 5:
+                    f = new FragmentAjustes();
+                    break;
             }
 
             cargarFragment(f, R.id.contenedor2ID);

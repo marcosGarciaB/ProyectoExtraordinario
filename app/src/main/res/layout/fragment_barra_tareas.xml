@@ -56,6 +56,18 @@
             android:onClick="seleccionarFragment"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp"/>
+
+        <ImageButton
+            android:id="@+id/ajustesID"
+            android:src="@android:drawable/ic_menu_manage"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:adjustViewBounds="true"
+            android:onClick="seleccionarFragment"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"/>
     </androidx.appcompat.widget.Toolbar>
 
 </FrameLayout>

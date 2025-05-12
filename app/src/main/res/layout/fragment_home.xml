@@ -5,10 +5,30 @@
     android:layout_height="match_parent"
     tools:context=".FragmentHome">
 
+    <EditText
+        android:id="@+id/editNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Escribe tu nombre"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HOME" />
+        android:id="@+id/textNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tu nombre aparecerá aquí"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp" />
+
+    <Button
+        android:id="@+id/btnAplicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aplicar"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="80dp" />
 
 </FrameLayout>
