@@ -1,5 +1,24 @@
 <resources>
     <string name="app_name">ProyectoExtraordinario</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Distintos textos de los SwitchCompats. -->
+    <string name="seguir_jugador">🔔 Seguir jugador</string>
+    <string name="siguiendo_jugador">✅ Siguiendo </string>
+
+    <!-- Strings para las cosas del jugador. -->
+    <string name="nombre_jugador">Nombre: </string>
+    <string name="posicion_jugador">Posición: </string>
+    <string name="valor_mercado">Valor de mercado: </string>
+    <string name="ritmo_jugador">⚡ Ritmo: </string>
+    <string name="regate_jugador">🎯 Regate:  </string>
+    <string name="tiro_jugador">🔥 Tiro: </string>
+    <string name="defensa_jugador">🛡️ Defensa: </string>
+    <string name="pase_jugador">🎯 Pase: </string>
+    <string name="fisico_jugador">💪 Físico: </string>
+
+    <!-- Distintos nombres de los botones. -->
+    <string name="boton_comprar_jugador">Comprar jugador</string>
+    <string name="boton_comprar_jugador_comprado">Jugador en propiedad</string>
+    <string name="boton_volver">Volver</string>
+
 </resources>

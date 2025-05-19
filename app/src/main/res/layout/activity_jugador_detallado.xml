@@ -2,15 +2,31 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:padding="16dp"
+    android:background="@drawable/fondo_jugador_detallado"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchSeguimientoID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="12dp"
+        android:text="@string/seguir_jugador"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:thumbTint="@color/colorAccent"
+        android:trackTint="@color/colorPrimary" />
+
 
     <ImageView
         android:id="@+id/escudoEquipoID"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="20dp"/>
 
     <ImageView
         android:id="@+id/fotoJugadorID"
@@ -25,11 +41,59 @@
         android:textSize="18sp"
         android:textAlignment="center"/>
 
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*"
+        android:padding="1dp">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_gravity="center"
+                android:text="@string/ritmo_jugador"
+                android:layout_width="wrap_content"
+                android:padding="18dp" />
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_gravity="center"
+                android:text="@string/regate_jugador"
+                android:padding="18dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_gravity="center"
+                android:text="@string/tiro_jugador"
+                android:padding="18dp"/>
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_gravity="center"
+                android:text="@string/defensa_jugador"
+                android:padding="18dp"/>
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/tv5"
+                android:layout_gravity="center"
+                android:text="@string/pase_jugador"
+                android:padding="18dp"/>
+            <TextView
+                android:id="@+id/tv6"
+                android:layout_gravity="center"
+                android:text="@string/fisico_jugador"
+                android:padding="18dp"/>
+        </TableRow>
+    </TableLayout>
+
     <Button
         android:id="@+id/btComprarID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Comprar jugador"
+        android:text="@string/boton_comprar_jugador"
         android:backgroundTint="#4CAF50"
         android:layout_marginTop="20dp"
         android:textColor="#FFF"
@@ -39,7 +103,7 @@
         android:id="@+id/btVolverID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Volver"
+        android:text="@string/boton_volver"
         android:backgroundTint="#F44336"
         android:textColor="#FFF"/>
 </LinearLayout>
