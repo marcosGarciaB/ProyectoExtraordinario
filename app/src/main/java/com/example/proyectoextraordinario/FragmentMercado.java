@@ -28,6 +28,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+
+//Tengo que meter que se puedan seguir a los jugadores, opción de venderlos, que se gaste el dinero
+// y en la plantilla poder poner algunos en favoritos y que cuando pinche sobre ellos salgan las estadísticas.
 public class FragmentMercado extends Fragment {
     private ListView listView;
     private Spinner spinner;
@@ -61,12 +64,12 @@ public class FragmentMercado extends Fragment {
         bindingSpinner(getContext());
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
-            Intent intent = new Intent(getActivity(), JugadorDetallado.class);
+            Jugador jugadorSeleccionado = jugadorList.get(position);
+            Estadisticas estadisticasSeleccionadas = estadisticasList.get(position);
 
-            intent.putParcelableArrayListExtra("jugadores", jugadorList);
-
-
-            startActivity(intent);
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).abrirJugadorDetallado(jugadorSeleccionado, estadisticasSeleccionadas);
+            }
         });
 
         return view;
@@ -87,15 +90,15 @@ public class FragmentMercado extends Fragment {
 
                 switch (seleccionado) {
                     case "Defensas":
-                        consultaDefensas(getContext());
+                        consultarPorTipo(getContext(), "defensas");
                         break;
 
                     case "Centrocampistas":
-                         consultaCentrocampistas(getContext());
+                        consultarPorTipo(getContext(), "centrocampistas");
                         break;
 
                     case "Delanteros":
-                        consultaDelanteros(getContext());
+                        consultarPorTipo(getContext(), "delanteros");
                         break;
 
                     case "Todos":
@@ -112,232 +115,66 @@ public class FragmentMercado extends Fragment {
 
     }
 
-    public void consultaDefensas(Context context) {
+    public void consultarPorTipo(Context context, String tipo) {
+        jugadorList.clear();
+        estadisticasList.clear();
+
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlJugadores, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                response -> {
+                    try {
+                        JSONObject root = response.getJSONObject("data");
+                        JSONArray array = root.getJSONArray(tipo);
 
-                        try {
-                            JSONObject root = response.getJSONObject("data");
-                            JSONArray defensasArray = root.getJSONArray("defensas");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jugadorJson = array.getJSONObject(i);
+                            Jugador jugador = new Jugador(
+                                    jugadorJson.getString("nombre"),
+                                    jugadorJson.getString("valor_mercado"),
+                                    jugadorJson.getString("valor_fifa"),
+                                    jugadorJson.getString("escudo"),
+                                    jugadorJson.getString("foto"),
+                                    jugadorJson.getString("posicion_real")
+                            );
 
-                            String nombre = "";
-                            String valoracion = "";
-                            String posicion = "";
-                            String escudoEquipo = "";
-                            String fotoJugador = "";
-                            String valorMercado = "";
-
-                            String pase = "";
-                            String tiro = "";
-                            String fisico = "";
-                            String regate = "";
-                            String defensa = "";
-                            String ritmo = "";
-
-                            for (int i = 0; i < defensasArray.length(); i++) {
-                                nombre = defensasArray.getJSONObject(i).getString("nombre");
-                                valoracion = defensasArray.getJSONObject(i).getString("valor_fifa");
-                                posicion = defensasArray.getJSONObject(i).getString("posicion_real");
-                                escudoEquipo = defensasArray.getJSONObject(i).getString("escudo");
-                                fotoJugador = defensasArray.getJSONObject(i).getString("foto");
-                                valorMercado = defensasArray.getJSONObject(i).getString("valor_mercado");
-
-                                Jugador jugador = new Jugador(nombre,valorMercado, valoracion, escudoEquipo, fotoJugador, posicion);
-                                Log.e("TAG", "onResponse: " + jugador.toString());
-
-                                JSONArray estadisticasArray = defensasArray.getJSONObject(i).getJSONArray("estadisticas");
-
-                                for (int j = 0; j < estadisticasArray.length(); j++) {
-                                    pase = estadisticasArray.getJSONObject(j).getString("pase");
-                                    tiro = estadisticasArray.getJSONObject(j).getString("tiro");
-                                    fisico = estadisticasArray.getJSONObject(j).getString("fisico");
-                                    regate = estadisticasArray.getJSONObject(j).getString("regate");
-                                    defensa = estadisticasArray.getJSONObject(j).getString("defensa");
-                                    ritmo = estadisticasArray.getJSONObject(j).getString("ritmo");
-
-                                    Estadisticas stats = new Estadisticas(ritmo, regate, tiro, defensa, pase, fisico);
-                                    Log.e("TAG", "onResponse: " + stats.toString());
-
-                                    estadisticasList.add(stats);
-
-                                }
-
-                                jugadorList.add(jugador);
+                            JSONArray estadisticasArray = jugadorJson.getJSONArray("estadisticas");
+                            for (int j = 0; j < estadisticasArray.length(); j++) {
+                                JSONObject stat = estadisticasArray.getJSONObject(j);
+                                Estadisticas stats = new Estadisticas(
+                                        stat.getString("ritmo"),
+                                        stat.getString("regate"),
+                                        stat.getString("tiro"),
+                                        stat.getString("defensa"),
+                                        stat.getString("pase"),
+                                        stat.getString("fisico")
+                                );
+                                estadisticasList.add(stats);
                             }
 
-                            Adaptador adaptador = new Adaptador(context, jugadorList, estadisticasList);
-                            listView.setAdapter(adaptador);
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
+                            jugadorList.add(jugador);
                         }
+
+                        Adaptador adaptador = new Adaptador(context, jugadorList, estadisticasList);
+                        listView.setAdapter(adaptador);
+
+                    } catch (JSONException e) {
+                        Log.e("JSON_ERROR", "Error al parsear JSON", e);
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", "Error al obtener algún dato. " + error.getMessage());
-            }
-        }
+                },
+                error -> Log.e("VOLLEY_ERROR", "Error en la solicitud: " + error.getMessage())
         );
+
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void consultaCentrocampistas(Context context) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlJugadores, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject root = response.getJSONObject("data");
-                            JSONArray defensasArray = root.getJSONArray("centrocampistas");
-
-                            String nombre = "";
-                            String valoracion = "";
-                            String posicion = "";
-                            String escudoEquipo = "";
-                            String fotoJugador = "";
-                            String valorMercado = "";
-
-                            String pase = "";
-                            String tiro = "";
-                            String fisico = "";
-                            String regate = "";
-                            String defensa = "";
-                            String ritmo = "";
-
-                            for (int i = 0; i < defensasArray.length(); i++) {
-                                nombre = defensasArray.getJSONObject(i).getString("nombre");
-                                valoracion = defensasArray.getJSONObject(i).getString("valor_fifa");
-                                posicion = defensasArray.getJSONObject(i).getString("posicion_real");
-                                escudoEquipo = defensasArray.getJSONObject(i).getString("escudo");
-                                fotoJugador = defensasArray.getJSONObject(i).getString("foto");
-                                valorMercado = defensasArray.getJSONObject(i).getString("valor_mercado");
-
-                                Jugador jugador = new Jugador(nombre,valorMercado, valoracion, escudoEquipo, fotoJugador, posicion);
-                                Log.e("TAG", "onResponse: " + jugador.toString());
-
-                                JSONArray estadisticasArray = defensasArray.getJSONObject(i).getJSONArray("estadisticas");
-
-                                for (int j = 0; j < estadisticasArray.length(); j++) {
-                                    pase = estadisticasArray.getJSONObject(j).getString("pase");
-                                    tiro = estadisticasArray.getJSONObject(j).getString("tiro");
-                                    fisico = estadisticasArray.getJSONObject(j).getString("fisico");
-                                    regate = estadisticasArray.getJSONObject(j).getString("regate");
-                                    defensa = estadisticasArray.getJSONObject(j).getString("defensa");
-                                    ritmo = estadisticasArray.getJSONObject(j).getString("ritmo");
-
-                                    Estadisticas stats = new Estadisticas(ritmo, regate, tiro, defensa, pase, fisico);
-                                    Log.e("TAG", "onResponse: " + stats.toString());
-
-                                    estadisticasList.add(stats);
-
-                                }
-
-                                jugadorList.add(jugador);
-                            }
-
-                            Adaptador adaptador = new Adaptador(context, jugadorList, estadisticasList);
-                            listView.setAdapter(adaptador);
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", "Error al obtener algún dato. " + error.getMessage());
-            }
-        }
-        );
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void consultaDelanteros(Context context) {
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlJugadores, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-                            JSONObject root = response.getJSONObject("data");
-                            JSONArray defensasArray = root.getJSONArray("delanteros");
-
-                            String nombre = "";
-                            String valoracion = "";
-                            String posicion = "";
-                            String escudoEquipo = "";
-                            String fotoJugador = "";
-                            String valorMercado = "";
-
-                            String pase = "";
-                            String tiro = "";
-                            String fisico = "";
-                            String regate = "";
-                            String defensa = "";
-                            String ritmo = "";
-
-                            for (int i = 0; i < defensasArray.length(); i++) {
-                                nombre = defensasArray.getJSONObject(i).getString("nombre");
-                                valoracion = defensasArray.getJSONObject(i).getString("valor_fifa");
-                                posicion = defensasArray.getJSONObject(i).getString("posicion_real");
-                                escudoEquipo = defensasArray.getJSONObject(i).getString("escudo");
-                                fotoJugador = defensasArray.getJSONObject(i).getString("foto");
-                                valorMercado = defensasArray.getJSONObject(i).getString("valor_mercado");
-
-                                Jugador jugador = new Jugador(nombre,valorMercado, valoracion, escudoEquipo, fotoJugador, posicion);
-                                Log.e("TAG", "onResponse: " + jugador.toString());
-
-                                JSONArray estadisticasArray = defensasArray.getJSONObject(i).getJSONArray("estadisticas");
-
-                                for (int j = 0; j < estadisticasArray.length(); j++) {
-                                    pase = estadisticasArray.getJSONObject(j).getString("pase");
-                                    tiro = estadisticasArray.getJSONObject(j).getString("tiro");
-                                    fisico = estadisticasArray.getJSONObject(j).getString("fisico");
-                                    regate = estadisticasArray.getJSONObject(j).getString("regate");
-                                    defensa = estadisticasArray.getJSONObject(j).getString("defensa");
-                                    ritmo = estadisticasArray.getJSONObject(j).getString("ritmo");
-
-                                    Estadisticas stats = new Estadisticas(ritmo, regate, tiro, defensa, pase, fisico);
-                                    Log.e("TAG", "onResponse: " + stats.toString());
-
-                                    estadisticasList.add(stats);
-
-                                }
-
-                                jugadorList.add(jugador);
-                            }
-
-                            Adaptador adaptador = new Adaptador(context, jugadorList, estadisticasList);
-                            listView.setAdapter(adaptador);
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("ERROR", "Error al obtener algún dato. " + error.getMessage());
-            }
-        }
-        );
-        requestQueue.add(jsonObjectRequest);
-    }
 
     public void consultaTodos(Context context) {
         jugadorList.clear();
         estadisticasList.clear();
 
-        consultaDefensas(context);
-        consultaCentrocampistas(context);
-        consultaDelanteros(context);
+        consultarPorTipo(getContext(), "defensas");
+        consultarPorTipo(getContext(), "centrocampistas");
+        consultarPorTipo(getContext(), "delanteros");
     }
 
 }

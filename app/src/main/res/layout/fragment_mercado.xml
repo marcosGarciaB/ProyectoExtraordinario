@@ -16,41 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <SeekBar
-            android:id="@+id/filtroDineroID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10000000"
-            android:progress="5000000" />
-
-        <TextView
-            android:id="@+id/tvDineroID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Dinero: 5,000,000"
-            android:gravity="center"/>
-
-        <SeekBar
-            android:id="@+id/filtroMediaID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="100"
-            android:progress="75" />
-
-        <TextView
-            android:id="@+id/tvMediaID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Media: 75"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btAplicarID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Aplicar Filtro"
-            android:layout_marginTop="16dp"/>
-
         <ListView
             android:id="@+id/listview"
             android:layout_width="match_parent"

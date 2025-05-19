@@ -1,10 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".JugadorDetallado">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/escudoEquipoID"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="50dp"/>
+
+    <ImageView
+        android:id="@+id/fotoJugadorID"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/textoInfoID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/btComprarID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Comprar jugador"
+        android:backgroundTint="#4CAF50"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFF"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btVolverID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:backgroundTint="#F44336"
+        android:textColor="#FFF"/>
+</LinearLayout>

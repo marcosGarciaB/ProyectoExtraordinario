@@ -1,6 +1,11 @@
 package com.example.proyectoextraordinario;
 
-public class Estadisticas {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Estadisticas implements Parcelable {
 
     private String ritmo;
     private String regate;
@@ -17,6 +22,27 @@ public class Estadisticas {
         this.pase = pase;
         this.fisico = fisico;
     }
+
+    protected Estadisticas(Parcel in) {
+        ritmo = in.readString();
+        regate = in.readString();
+        tiro = in.readString();
+        defensa = in.readString();
+        pase = in.readString();
+        fisico = in.readString();
+    }
+
+    public static final Creator<Estadisticas> CREATOR = new Creator<Estadisticas>() {
+        @Override
+        public Estadisticas createFromParcel(Parcel in) {
+            return new Estadisticas(in);
+        }
+
+        @Override
+        public Estadisticas[] newArray(int size) {
+            return new Estadisticas[size];
+        }
+    };
 
     public String getRitmo() {
         return ritmo;
@@ -76,5 +102,20 @@ public class Estadisticas {
                 ", pase='" + pase + '\'' +
                 ", fisico='" + fisico + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(ritmo);
+        dest.writeString(regate);
+        dest.writeString(tiro);
+        dest.writeString(defensa);
+        dest.writeString(pase);
+        dest.writeString(fisico);
     }
 }
