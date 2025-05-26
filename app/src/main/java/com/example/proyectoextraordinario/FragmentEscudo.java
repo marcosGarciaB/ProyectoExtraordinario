@@ -36,7 +36,7 @@ public class FragmentEscudo extends Fragment {
     private ImageButton ibBack, ibNext;
     private Button btConfirmar;
 
-    private String urlEscudos = "https://api.myjson.online/v1/records/987c3e96-c0e7-4a43-984e-6d867f24a5b1";
+    private String urlEscudos = "https://raw.githubusercontent.com/marcosGarciaB/JSON/refs/heads/main/Escudos.json";
 
     private ArrayList<String> escudosList;
     private ArrayList<String> nombresEquipos;
@@ -118,8 +118,7 @@ public class FragmentEscudo extends Fragment {
                     public void onResponse(JSONObject response) {
 
                         try {
-                            JSONObject root = response.getJSONObject("data");
-                            JSONArray ligasArray = root.getJSONArray("ligas");
+                            JSONArray ligasArray = response.getJSONArray("ligas");
 
                             String nombreLiga = "";
                             String nombreEquipo = "";

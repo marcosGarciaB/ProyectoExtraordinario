@@ -25,20 +25,6 @@ public class FragmentPlantilla extends Fragment {
         // Required empty public constructor
     }
 
-    public static FragmentPlantilla newInstance(String param1, String param2) {
-        FragmentPlantilla fragment = new FragmentPlantilla();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plantilla, container, false);
@@ -61,12 +47,14 @@ public class FragmentPlantilla extends Fragment {
         }
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         sharedViewModel.getJugadoresComprados().observe(getViewLifecycleOwner(), jugadores -> {
+
             for (int i = 0; i < titularesViews.size(); i++) {
                 if (i < jugadores.size()) {
                     mostrarJugadorEnVista(titularesViews.get(i), jugadores.get(i));
                 } else {
-                    limpiarVistaJugador(titularesViews.get(i)); // Borra la vista si no hay jugador
+                    limpiarVistaJugador(titularesViews.get(i));
                 }
             }
 

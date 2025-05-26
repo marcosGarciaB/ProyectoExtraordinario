@@ -94,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/boton_comprar_jugador"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="@color/verde"
         android:layout_marginTop="20dp"
         android:textColor="#FFF"
         android:layout_marginBottom="16dp"/>

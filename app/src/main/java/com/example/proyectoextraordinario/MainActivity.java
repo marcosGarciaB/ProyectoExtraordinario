@@ -70,17 +70,13 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE_JUGADOR_COMPRADO);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_JUGADOR_COMPRADO && resultCode == RESULT_OK && data != null) {
             Jugador jugadorComprado = data.getParcelableExtra("jugadorComprado");
-            if (jugadorComprado != null) {
-                sharedViewModel.setJugadorComprado(jugadorComprado);
-            }
+            if (jugadorComprado != null) sharedViewModel.agregarJugadorComprado(this, jugadorComprado);
         }
     }
-
 }

@@ -22,4 +22,15 @@
         android:textSize="15sp"
         android:textColor="#000"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btVenderJugador"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#D51E1E"
+        android:text="@string/jugador_plantilla_item" />
 </LinearLayout>

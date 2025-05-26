@@ -140,4 +140,16 @@ public class Jugador implements Parcelable {
         dest.writeString(foto);
         dest.writeString(posicion);
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Jugador)) return false;
+        Jugador jugador = (Jugador) o;
+        return nombre != null && nombre.equals(jugador.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre != null ? nombre.hashCode() : 0;
+    }
 }

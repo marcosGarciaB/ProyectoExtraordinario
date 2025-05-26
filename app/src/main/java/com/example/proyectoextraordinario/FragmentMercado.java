@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -29,12 +31,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-//Tengo que meter que se puedan seguir a los jugadores, opción de venderlos, que se gaste el dinero
+//opción de venderlos, que se gaste el dinero
 // y en la plantilla poder poner algunos en favoritos y que cuando pinche sobre ellos salgan las estadísticas.
+
 public class FragmentMercado extends Fragment {
+    private Button btSiguiendo, btVentaJugador;
     private ListView listView;
     private Spinner spinner;
-    private String urlJugadores = "https://api.myjson.online/v1/records/f8023be6-48e4-4f1d-ab57-90e2ced1c118";
+    private SharedViewModel sharedViewModel;
+    private String urlJugadores = "https://raw.githubusercontent.com/marcosGarciaB/JSON/refs/heads/main/Jugadores.json";
 
     private ArrayList<Jugador> jugadorList;
     private ArrayList<Estadisticas> estadisticasList;
@@ -53,6 +58,11 @@ public class FragmentMercado extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mercado, container, false);
 
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
+        btSiguiendo = view.findViewById(R.id.btListaSiguiendoID);
+        btVentaJugador = view.findViewById(R.id.btVentaJugadoresID);
+
         listView = view.findViewById(R.id.listview);
         spinner = view.findViewById(R.id.spinnerID);
 
@@ -60,7 +70,6 @@ public class FragmentMercado extends Fragment {
         estadisticasList = new ArrayList<>();
 
         consultaTodos(getContext());
-
         bindingSpinner(getContext());
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
@@ -70,6 +79,16 @@ public class FragmentMercado extends Fragment {
             if (getActivity() instanceof MainActivity) {
                 ((MainActivity) getActivity()).abrirJugadorDetallado(jugadorSeleccionado, estadisticasSeleccionadas);
             }
+        });
+
+        btSiguiendo.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ActivitySiguiendo.class);
+            startActivity(intent);
+        });
+
+        btVentaJugador.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), ActivityVenta.class);
+            startActivity(intent);
         });
 
         return view;
@@ -112,7 +131,6 @@ public class FragmentMercado extends Fragment {
 
             }
         });
-
     }
 
     public void consultarPorTipo(Context context, String tipo) {
@@ -123,8 +141,7 @@ public class FragmentMercado extends Fragment {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlJugadores, null,
                 response -> {
                     try {
-                        JSONObject root = response.getJSONObject("data");
-                        JSONArray array = root.getJSONArray(tipo);
+                        JSONArray array = response.getJSONArray(tipo);
 
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject jugadorJson = array.getJSONObject(i);

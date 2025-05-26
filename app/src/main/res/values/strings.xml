@@ -21,4 +21,9 @@
     <string name="boton_comprar_jugador_comprado">Jugador en propiedad</string>
     <string name="boton_volver">Volver</string>
 
+    <!-- Cosas random -->
+    <string name="dinero_barra_tareas"> 💰 900.000.000 </string>
+    <string name="activity_siguiendo">No estás siguiendo a ningún jugador</string>
+    <string name="activity_ventas">No has comprado a ningún jugador</string>
+    <string name="jugador_plantilla_item">Vender</string>
 </resources>

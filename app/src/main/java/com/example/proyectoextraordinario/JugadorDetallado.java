@@ -22,6 +22,9 @@ public class JugadorDetallado extends AppCompatActivity {
     private TextView texto, tv1, tv2, tv3, tv4, tv5, tv6;
     private ImageView escudo, foto;
     private Button btVolver, btComprar;
+    private boolean estadoSwitch;
+    private Jugador jugador;
+    private Estadisticas estadisticas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,8 @@ public class JugadorDetallado extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_jugador_detallado);
 
-        Jugador jugador = getIntent().getParcelableExtra("jugador");
-        Estadisticas estadisticas = getIntent().getParcelableExtra("estadisticas");
+        jugador = getIntent().getParcelableExtra("jugador");
+        estadisticas = getIntent().getParcelableExtra("estadisticas");
 
         texto = findViewById(R.id.textoInfoID);
         escudo = findViewById(R.id.escudoEquipoID);
@@ -67,35 +70,52 @@ public class JugadorDetallado extends AppCompatActivity {
             Picasso.get().load(jugador.getFoto()).into(foto);
         }
 
-        btVolver.setOnClickListener(v -> {
-            finish();
-        });
+        if (jugador != null) {
+            estadoSwitch = true;
+            boolean siguiendo = Preferencias.estaSiguiendo(this, jugador);
+            switchCompat.setChecked(siguiendo);
+            switchCompat.setText(siguiendo ? R.string.siguiendo_jugador : R.string.seguir_jugador);
+            estadoSwitch = false;
+        }
+
+        btVolver.setOnClickListener(v -> finish());
+
+        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
         btComprar.setOnClickListener(v -> {
             if (jugador != null) {
-                Intent resultado = new Intent();
-                resultado.putExtra("jugadorComprado", jugador);
-                setResult(RESULT_OK, resultado);
+                viewModel.agregarJugadorComprado(this, jugador);
 
                 btComprar.setText(R.string.boton_comprar_jugador_comprado);
                 btComprar.setBackgroundColor(Color.GRAY);
                 btComprar.setEnabled(false);
+            }
+        });
 
+//        btComprar.setOnClickListener(v -> {
+//            if (jugador != null) {
+//                Preferencias.guardarJugadorComprado(this, jugador);
+//
+//                btComprar.setText(R.string.boton_comprar_jugador_comprado);
+//                btComprar.setBackgroundColor(Color.GRAY);
+//                btComprar.setEnabled(false);
+//
+//                Intent resultado = new Intent();
+//                resultado.putExtra("jugadorComprado", jugador);
+//                setResult(RESULT_OK, resultado);
+//
+//            } else {
+//                Toast.makeText(this, "Error al cargar jugador para comprar", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Preferencias.guardarJugadorSeguido(getApplicationContext(), jugador);
             } else {
-                Toast.makeText(this, "Error al cargar jugador para comprar", Toast.LENGTH_SHORT).show();
+                Preferencias.eliminarJugadorSeguido(getApplicationContext(), jugador);
             }
+            switchCompat.setText(isChecked ? R.string.siguiendo_jugador : R.string.seguir_jugador);
         });
-
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    switchCompat.setText(R.string.siguiendo_jugador);
-                } else {
-                    switchCompat.setText(R.string.seguir_jugador);
-                }
-            }
-        });
-
     }
 }
