@@ -12,7 +12,7 @@ public class Preferencias {
 
     private static Gson gson = new Gson();
 
-    private static final String PREF_COMPRAS = "comprado";
+    private static final String PREF_COMPRAS = "jugador-comprado";
     private static final String PREF_COMPRAS_JSON = "compras_objetos";
 
     private static final String PREF_SEGUIMIENTO = "seguido";
@@ -34,7 +34,7 @@ public class Preferencias {
     }
 
     public static void eliminarJugadorComprado(Context context, Jugador jugador) {
-        SharedPreferences prefs = context.getSharedPreferences(PREF_SEGUIMIENTO, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(PREF_COMPRAS, Context.MODE_PRIVATE);
         prefs.edit().remove(jugador.getNombre()).apply();
 
         SharedPreferences prefsComprados = context.getSharedPreferences(PREF_COMPRAS_JSON, Context.MODE_PRIVATE);

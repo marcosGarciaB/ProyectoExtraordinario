@@ -35,8 +35,41 @@
         android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/textoInfoID"
+        android:id="@+id/textoNombreID"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/nombre_jugador"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/textoPosicionID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/posicion_jugador"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/textoValorMercadoID"
+        android:layout_width="match_parent"
+        android:text="@string/valor_mercado"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/textoValorFIFAID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/valor_fifa"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/textoEstadisticasID"
+        android:layout_width="match_parent"
+        android:text="@string/estadisticas"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textAlignment="center"/>

@@ -12,7 +12,9 @@ public class SharedViewModel extends ViewModel {
 
     private final MutableLiveData<Integer> botonSeleccionado = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Jugador>> jugadoresComprados = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<Integer> dineroDisponible = new MutableLiveData<>();
 
+    //Para los distintos fragments.
     public void setBotonSeleccionado(int botonID) {
         botonSeleccionado.setValue(botonID);
     }
@@ -21,6 +23,7 @@ public class SharedViewModel extends ViewModel {
         return botonSeleccionado;
     }
 
+    //Para compra-venta de jugadores.
     public LiveData<ArrayList<Jugador>> getJugadoresComprados() {
         return jugadoresComprados;
     }
@@ -54,4 +57,16 @@ public class SharedViewModel extends ViewModel {
         jugadoresComprados.setValue(jugadores);
     }
 
+    //Para el dinero de la barra de tareas.
+    public void dineroJugadorVendido(Context context, int dinero) {
+
+    }
+
+    public void dineroJugadorComprado(Context context, int dinero) {
+
+    }
+
+    public void obtenerDinero(Context context, int dinero) {
+        dineroDisponible.setValue(dinero);
+    }
 }

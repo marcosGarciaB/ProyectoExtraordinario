@@ -1,12 +1,9 @@
 package com.example.proyectoextraordinario;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.graphics.Color;
 
 import androidx.activity.EdgeToEdge;
@@ -19,10 +16,9 @@ import com.squareup.picasso.Picasso;
 public class JugadorDetallado extends AppCompatActivity {
 
     private SwitchCompat switchCompat;
-    private TextView texto, tv1, tv2, tv3, tv4, tv5, tv6;
+    private TextView tvNombre, tvPoscion, tvMercado, tvFifa, tv1, tv2, tv3, tv4, tv5, tv6;
     private ImageView escudo, foto;
     private Button btVolver, btComprar;
-    private boolean estadoSwitch;
     private Jugador jugador;
     private Estadisticas estadisticas;
 
@@ -35,7 +31,11 @@ public class JugadorDetallado extends AppCompatActivity {
         jugador = getIntent().getParcelableExtra("jugador");
         estadisticas = getIntent().getParcelableExtra("estadisticas");
 
-        texto = findViewById(R.id.textoInfoID);
+        tvNombre = findViewById(R.id.textoNombreID);
+        tvPoscion = findViewById(R.id.textoPosicionID);
+        tvMercado = findViewById(R.id.textoValorMercadoID);
+        tvFifa = findViewById(R.id.textoValorFIFAID);
+
         escudo = findViewById(R.id.escudoEquipoID);
         foto = findViewById(R.id.fotoJugadorID);
         btVolver = findViewById(R.id.btVolverID);
@@ -50,15 +50,37 @@ public class JugadorDetallado extends AppCompatActivity {
 
         switchCompat = findViewById(R.id.switchSeguimientoID);
 
-        if (jugador != null && estadisticas != null) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("👤 Nombre: ").append(jugador.getNombre()).append("\n\n");
-            sb.append("📌 Posición: ").append(jugador.getPosicion()).append("\n");
-            sb.append("💰 Valor de mercado: ").append(jugador.getValor_mercado()).append("\n");
-            sb.append("🎮 Valor FIFA: ").append(jugador.getValor_carta()).append("\n\n");
-            sb.append("📊 Estadísticas:\n");
+        configuracionTexto();
+        estadoConfiguraciones();
 
-            texto.setText(sb.toString());
+        btVolver.setOnClickListener(v -> finish());
+
+        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+
+        btComprar.setOnClickListener(v -> {
+            if (jugador != null) {
+                viewModel.agregarJugadorComprado(this, jugador);
+                estadoConfiguraciones();
+            }
+        });
+
+        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                Preferencias.guardarJugadorSeguido(getApplicationContext(), jugador);
+            } else {
+                Preferencias.eliminarJugadorSeguido(getApplicationContext(), jugador);
+            }
+            switchCompat.setText(isChecked ? R.string.siguiendo_jugador : R.string.seguir_jugador);
+        });
+    }
+
+    public void configuracionTexto() {
+        if (jugador != null && estadisticas != null) {
+            tvNombre.setText(tvNombre.getText() + String.valueOf(jugador.getNombre()));
+            tvPoscion.setText(tvPoscion.getText() + String.valueOf(jugador.getPosicion()));
+            tvMercado.setText(tvMercado.getText() + String.valueOf(jugador.getValor_mercado()));
+            tvFifa.setText(tvFifa.getText() + String.valueOf(jugador.getValor_carta()));
+
             tv1.setText(tv1.getText() + String.valueOf(estadisticas.getRitmo()));
             tv2.setText(tv2.getText() + String.valueOf(estadisticas.getRegate()));
             tv3.setText(tv3.getText() + String.valueOf(estadisticas.getTiro()));
@@ -69,53 +91,28 @@ public class JugadorDetallado extends AppCompatActivity {
             Picasso.get().load(jugador.getEscudo()).into(escudo);
             Picasso.get().load(jugador.getFoto()).into(foto);
         }
+    }
 
+    public void estadoConfiguraciones() {
         if (jugador != null) {
-            estadoSwitch = true;
             boolean siguiendo = Preferencias.estaSiguiendo(this, jugador);
             switchCompat.setChecked(siguiendo);
             switchCompat.setText(siguiendo ? R.string.siguiendo_jugador : R.string.seguir_jugador);
-            estadoSwitch = false;
         }
 
-        btVolver.setOnClickListener(v -> finish());
+        if (jugador != null) {
+            boolean comprado = Preferencias.estaComprado(this, jugador);
 
-        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-
-        btComprar.setOnClickListener(v -> {
-            if (jugador != null) {
-                viewModel.agregarJugadorComprado(this, jugador);
-
+            if(comprado) {
                 btComprar.setText(R.string.boton_comprar_jugador_comprado);
                 btComprar.setBackgroundColor(Color.GRAY);
                 btComprar.setEnabled(false);
-            }
-        });
 
-//        btComprar.setOnClickListener(v -> {
-//            if (jugador != null) {
-//                Preferencias.guardarJugadorComprado(this, jugador);
-//
-//                btComprar.setText(R.string.boton_comprar_jugador_comprado);
-//                btComprar.setBackgroundColor(Color.GRAY);
-//                btComprar.setEnabled(false);
-//
-//                Intent resultado = new Intent();
-//                resultado.putExtra("jugadorComprado", jugador);
-//                setResult(RESULT_OK, resultado);
-//
-//            } else {
-//                Toast.makeText(this, "Error al cargar jugador para comprar", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        switchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                Preferencias.guardarJugadorSeguido(getApplicationContext(), jugador);
             } else {
-                Preferencias.eliminarJugadorSeguido(getApplicationContext(), jugador);
+                btComprar.setText(R.string.boton_comprar_jugador);
+                btComprar.setBackgroundColor(Color.GREEN);
+                btComprar.setEnabled(true);
             }
-            switchCompat.setText(isChecked ? R.string.siguiendo_jugador : R.string.seguir_jugador);
-        });
+        }
     }
 }

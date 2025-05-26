@@ -6,9 +6,10 @@
     <string name="siguiendo_jugador">✅ Siguiendo </string>
 
     <!-- Strings para las cosas del jugador. -->
-    <string name="nombre_jugador">Nombre: </string>
-    <string name="posicion_jugador">Posición: </string>
-    <string name="valor_mercado">Valor de mercado: </string>
+    <string name="nombre_jugador">👤 Nombre: </string>
+    <string name="posicion_jugador">📌 Posición: </string>
+    <string name="valor_mercado">💰 Valor de mercado: </string>
+    <string name="valor_fifa">🎮 Valor FIFA: </string>
     <string name="ritmo_jugador">⚡ Ritmo: </string>
     <string name="regate_jugador">🎯 Regate:  </string>
     <string name="tiro_jugador">🔥 Tiro: </string>
@@ -26,4 +27,5 @@
     <string name="activity_siguiendo">No estás siguiendo a ningún jugador</string>
     <string name="activity_ventas">No has comprado a ningún jugador</string>
     <string name="jugador_plantilla_item">Vender</string>
+    <string name="estadisticas">📊 Estadísticas:</string>
 </resources>

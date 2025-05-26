@@ -19,11 +19,19 @@ public class AdaptadorPlantilla extends BaseAdapter {
     private Context context;
     private ArrayList<Jugador> jugadores;
     private boolean mostrarBoton;
+    private SharedViewModel sharedViewModel;
 
     public AdaptadorPlantilla(Context context, ArrayList<Jugador> jugadores, boolean mostrarBoton) {
         this.context = context;
         this.jugadores = jugadores;
         this.mostrarBoton = mostrarBoton;
+    }
+
+    public AdaptadorPlantilla(Context context, ArrayList<Jugador> jugadores, boolean mostrarBoton, SharedViewModel sharedViewModel) {
+        this.context = context;
+        this.jugadores = jugadores;
+        this.mostrarBoton = mostrarBoton;
+        this.sharedViewModel = sharedViewModel;
     }
 
     @Override
@@ -52,14 +60,13 @@ public class AdaptadorPlantilla extends BaseAdapter {
         Jugador jugador = jugadores.get(position);
 
         nombreJugador.setText(jugador.getNombre());
-        Picasso.get().load(jugador.getFoto()).placeholder(R.drawable.ic_launcher_foreground).into(fotoJugador);
+        Picasso.get().load(jugador.getFoto()).into(fotoJugador);
 
         if (mostrarBoton) {
             btVenta.setVisibility(View.VISIBLE);
             btVenta.setOnClickListener(v -> {
-                Jugador jugadorAEliminar = jugadores.get(position);
                 jugadores.remove(position);
-                Preferencias.eliminarJugadorComprado(context, jugadorAEliminar);
+                sharedViewModel.eliminarJugadorComprado(context, jugador);
                 notifyDataSetChanged();
             });
         } else {

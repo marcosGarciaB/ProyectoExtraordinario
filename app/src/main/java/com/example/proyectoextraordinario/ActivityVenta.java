@@ -33,18 +33,16 @@ public class ActivityVenta extends AppCompatActivity {
         listView = findViewById(R.id.listaJugadoresSiguiendo_venta);
         btVolver2 = findViewById(R.id.btVolver2ID_venta);
 
-        adapter = new AdaptadorPlantilla(this, new ArrayList<>(), true);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        sharedViewModel.setJugadoresCompradosDesdePreferencias(getApplicationContext());
+
+        adapter = new AdaptadorPlantilla(this, new ArrayList<>(), true, sharedViewModel);
         listView.setAdapter(adapter);
 
-        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-
-        ArrayList<Jugador> jugadores = Preferencias.obtenerJugadoresComprados(getApplicationContext());
-        sharedViewModel.setListaJugadoresComprados(jugadores);
-
         sharedViewModel.getJugadoresComprados().observe(this, jugadoresObservados  -> {
-            adapter.actualizarLista(jugadores);
+            adapter.actualizarLista(jugadoresObservados);
 
-            if (jugadores.isEmpty()) {
+            if (jugadoresObservados.isEmpty()) {
                 textoVacio.setVisibility(View.VISIBLE);
                 listView.setVisibility(View.GONE);
             } else {

@@ -5,15 +5,19 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class FragmentBarraTareas extends Fragment {
 
     private ImageButton btPlantilla, btMercado, btEscudo, btHome, btAjustes;
     private SharedViewModel sharedViewModel;
+    private TextView tvDinero;
 
     public FragmentBarraTareas() {
         // Required empty public constructor
@@ -37,6 +41,7 @@ public class FragmentBarraTareas extends Fragment {
         btEscudo = view.findViewById(R.id.escudoID);
         btHome = view.findViewById(R.id.homeID);
         btAjustes = view.findViewById(R.id.ajustesID);
+        tvDinero = view.findViewById(R.id.dineroID);
 
         btHome.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(1));
         btEscudo.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(2));
@@ -44,8 +49,11 @@ public class FragmentBarraTareas extends Fragment {
         btPlantilla.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(4));
         btAjustes.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(5));
 
+        tvDinero.setOnClickListener(v -> Toast.makeText(getContext(), "Es el dinero que tienes disponible.", Toast.LENGTH_LONG).show());
+
+        Log.d("DINERO DISPONIBLE ", String.valueOf(tvDinero.getText()));
+
+        //sharedViewModel.obtenerDinero(getContext(),);
         return view;
     }
-
-
 }
