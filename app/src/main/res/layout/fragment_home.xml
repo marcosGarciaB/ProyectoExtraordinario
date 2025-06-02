@@ -5,30 +5,50 @@
     android:layout_height="match_parent"
     tools:context=".FragmentHome">
 
-    <EditText
-        android:id="@+id/editNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Escribe tu nombre"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center_horizontal"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tu nombre aparecerá aquí"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp" />
+        <TextView
+            android:id="@+id/nombreUsuarioID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aqui tengo que poner el nombre del usuario."
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/btnAplicar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aplicar"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="80dp" />
+        <ImageView
+            android:id="@+id/imageViewFeatured"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fondo"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Imagen destacada" />
 
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aquí tengo que poner el nombre del equipo que seleccione."
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="250dp">
+
+            <VideoView
+                android:id="@+id/videoViewID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"/>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>
