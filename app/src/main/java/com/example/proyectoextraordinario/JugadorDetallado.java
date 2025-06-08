@@ -1,6 +1,7 @@
 package com.example.proyectoextraordinario;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class JugadorDetallado extends AppCompatActivity {
     private Button btVolver, btComprar;
     private Jugador jugador;
     private Estadisticas estadisticas;
+    private SharedViewModel sharedViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +57,12 @@ public class JugadorDetallado extends AppCompatActivity {
 
         btVolver.setOnClickListener(v -> finish());
 
-        SharedViewModel viewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        comprarJugador();
 
         btComprar.setOnClickListener(v -> {
             if (jugador != null) {
-                viewModel.agregarJugadorComprado(this, jugador);
+                sharedViewModel.agregarJugadorComprado(this, jugador);
                 estadoConfiguraciones();
             }
         });
@@ -112,6 +115,19 @@ public class JugadorDetallado extends AppCompatActivity {
                 btComprar.setBackgroundColor(Color.GREEN);
                 btComprar.setEnabled(true);
             }
+        }
+    }
+
+    private void comprarJugador() {
+        if (jugador != null) {
+            String valorMercado = jugador.getValor_mercado();
+            String numeroLimpio = valorMercado.replaceAll("[^\\d]", "");
+
+            long numero = Long.parseLong(numeroLimpio);
+
+            sharedViewModel.getDineroDisponible().observe(dinero ->
+
+                Log.e("PROBANDO DINERO DEL JUGADOR", "comprarJugador: " + sharedViewModel.getDineroDisponible().getValue());
         }
     }
 }

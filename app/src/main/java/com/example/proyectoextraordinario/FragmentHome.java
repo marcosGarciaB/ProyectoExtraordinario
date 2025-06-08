@@ -30,6 +30,7 @@ import java.util.Random;
 public class FragmentHome extends Fragment {
 
     private VideoView videoView;
+    private ImageView imgPrueba;
     private MediaController mediaController;
     private SharedViewModel sharedViewModel;
     private ImageView imgEscudo;

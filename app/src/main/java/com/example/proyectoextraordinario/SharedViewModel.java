@@ -14,7 +14,7 @@ public class SharedViewModel extends ViewModel {
 
     private final MutableLiveData<Integer> botonSeleccionado = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Jugador>> jugadoresComprados = new MutableLiveData<>(new ArrayList<>());
-    private final MutableLiveData<Integer> dineroDisponible = new MutableLiveData<>();
+    private final MutableLiveData<Long> dineroDisponible = new MutableLiveData<>();
     private final MutableLiveData<Map<String, String>> escudoSeleccionado = new MutableLiveData<>();
 
     //Para los distintos fragments.
@@ -69,9 +69,11 @@ public class SharedViewModel extends ViewModel {
     }
 
     //Para el dinero de la barra de tareas.
-    public void setDineroDisponible(Context context, int dinero) {
+    public void setDineroDisponible(Context context, long dinero) {
         dineroDisponible.setValue(dinero);
     }
 
-    public int get
+    public LiveData<Long> getDineroDisponible() {
+       return dineroDisponible;
+    }
 }
