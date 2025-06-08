@@ -103,11 +103,10 @@ public class JugadorDetallado extends AppCompatActivity {
         if (jugador != null) {
             boolean comprado = Preferencias.estaComprado(this, jugador);
 
-            if(comprado) {
+            if (comprado) {
                 btComprar.setText(R.string.boton_comprar_jugador_comprado);
                 btComprar.setBackgroundColor(Color.GRAY);
                 btComprar.setEnabled(false);
-
             } else {
                 btComprar.setText(R.string.boton_comprar_jugador);
                 btComprar.setBackgroundColor(Color.GREEN);

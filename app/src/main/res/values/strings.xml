@@ -22,10 +22,26 @@
     <string name="boton_comprar_jugador_comprado">Jugador en propiedad</string>
     <string name="boton_volver">Volver</string>
 
-    <!-- Cosas random -->
+    <!-- Cosas random. -->
     <string name="dinero_barra_tareas"> 💰 900.000.000 </string>
     <string name="activity_siguiendo">No estás siguiendo a ningún jugador</string>
     <string name="activity_ventas">No has comprado a ningún jugador</string>
     <string name="jugador_plantilla_item">Vender</string>
     <string name="estadisticas">📊 Estadísticas:</string>
+
+    <!-- Toast del proyecto. -->
+    <string name="escudo_confirmado">Se ha confirmado el escudo</string>
+
+    <!-- Fragment Home. -->
+    <string name="equipo_sin_confirmar">No has elegido equipo todavía.</string>
+    <string name="titulo_alert">Introduce tu nombre de usuario</string>
+    <string name="hint_alert">Nombre de usuario</string>
+    <string name="confirmar_alert">Confirmar</string>
+    <string name="cancelar_alert">Cancelar</string>
+    <string name="nombre_vacio_alert">Por favor, escribe un nombre</string>
+    <string name="nombre_usuario">Bienvenido </string>
+    <string name="equipo_predeterminado">Selecciona tu equipo favorito</string>
+    <string name="desc_escudo">Escudo del equipo</string>
+
+
 </resources>

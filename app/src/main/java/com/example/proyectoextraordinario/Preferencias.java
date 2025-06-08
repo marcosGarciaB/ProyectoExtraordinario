@@ -18,6 +18,15 @@ public class Preferencias {
     private static final String PREF_SEGUIMIENTO = "seguido";
     private static final String PREF_SEGUIMIENTO_JSON = "jugadores_objetos";
 
+    private static final String PREF_USUARIO = "nombre_usuario1";
+    private static final String CLAVE_NOMBRE = "clave_usuario2";
+
+    private static final String PREF_EQUIPO= "nombre_equipo1";
+    private static final String CLAVE_EQUIPO = "clave_equipo2";
+
+    private static final String PREF_ESCUDO = "escudo1";
+    private static final String CLAVE_ESCUDO = "clave-escudo1";
+
     //Jugadores que he comprado.
     public static boolean estaComprado(Context context, Jugador jugador) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_COMPRAS, Context.MODE_PRIVATE);
@@ -101,5 +110,38 @@ public class Preferencias {
         }
         return lista;
     }
+
+    //Nombre de usuario.
+    public static void guardarNombreUsuario(Context context, String nombre) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_USUARIO, Context.MODE_PRIVATE);
+        prefs.edit().putString(CLAVE_NOMBRE, nombre).apply();
+    }
+
+    public static String obtenerNombreUsuario(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_USUARIO, Context.MODE_PRIVATE);
+        return prefs.getString(CLAVE_NOMBRE, "");
+    }
+
+    //Equipo y escudo del home.
+    public static void guardarNombreEquipo(Context context, String nombre) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_EQUIPO, Context.MODE_PRIVATE);
+        prefs.edit().putString(CLAVE_EQUIPO, nombre).apply();
+    }
+
+    public static String obtenerNombreEquipo(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_EQUIPO, Context.MODE_PRIVATE);
+        return prefs.getString(CLAVE_EQUIPO, "");
+    }
+
+    public static void guardarEscudoEquipo(Context context, String url) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_ESCUDO, Context.MODE_PRIVATE);
+        prefs.edit().putString(CLAVE_ESCUDO, url).apply();
+    }
+
+    public static String obtenerEscudoEquipo(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREF_ESCUDO, Context.MODE_PRIVATE);
+        return prefs.getString(CLAVE_ESCUDO, "");
+    }
+
 
 }

@@ -51,8 +51,6 @@ public class FragmentBarraTareas extends Fragment {
 
         tvDinero.setOnClickListener(v -> Toast.makeText(getContext(), "Es el dinero que tienes disponible.", Toast.LENGTH_LONG).show());
 
-        Log.d("DINERO DISPONIBLE ", String.valueOf(tvDinero.getText()));
-
         //sharedViewModel.obtenerDinero(getContext(),);
         return view;
     }

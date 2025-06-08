@@ -1,24 +1,26 @@
 package com.example.proyectoextraordinario;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-
 public class FragmentPlantilla extends Fragment {
-    private ArrayList<View> titularesViews = new ArrayList<>();
-    private ArrayList<View> banquilloViews = new ArrayList<>();
+
     private SharedViewModel sharedViewModel;
 
     public FragmentPlantilla() {
@@ -29,67 +31,115 @@ public class FragmentPlantilla extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plantilla, container, false);
 
-        int[] titularesIds = {R.id.jugador1, R.id.jugador2, R.id.jugador3, R.id.jugador4, R.id.jugador5};
-        int[] banquilloIds = {R.id.banquillo1, R.id.banquillo2, R.id.banquillo3};
-
-        for (int id : titularesIds) {
-            FrameLayout frame = view.findViewById(id);
-            View jugadorView = inflater.inflate(R.layout.jugador_plantilla, frame, false);
-            frame.addView(jugadorView);
-            titularesViews.add(jugadorView);
-        }
-
-        for (int id : banquilloIds) {
-            FrameLayout frame = view.findViewById(id);
-            View jugadorView = inflater.inflate(R.layout.jugador_plantilla, frame, false);
-            frame.addView(jugadorView);
-            banquilloViews.add(jugadorView);
-        }
-
+        TableLayout tableTitulares = view.findViewById(R.id.tableLayoutTitulares);
+        TableLayout tableSuplentes = view.findViewById(R.id.tableLayoutSuplentes);
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
-        sharedViewModel.getJugadoresComprados().observe(getViewLifecycleOwner(), jugadores -> {
+        sharedViewModel.setJugadoresCompradosDesdePreferencias(requireContext());
 
-            for (int i = 0; i < titularesViews.size(); i++) {
-                if (i < jugadores.size()) {
-                    mostrarJugadorEnVista(titularesViews.get(i), jugadores.get(i));
-                } else {
-                    limpiarVistaJugador(titularesViews.get(i));
+        sharedViewModel.getJugadoresComprados().observe(getViewLifecycleOwner(), jugadoresObservados -> {
+            tableTitulares.removeAllViews();
+            tableSuplentes.removeAllViews();
+
+            for (int i = 0; i < jugadoresObservados.size(); i += 2) {
+                TableRow fila = new TableRow(requireContext());
+                fila.setPadding(0, 16, 0, 16);
+                fila.setGravity(Gravity.CENTER);
+
+                for (int j = i; j < i + 2 && j < jugadoresObservados.size() && j < 5; j++) {
+                    Jugador jugador = jugadoresObservados.get(j);
+                    View celda = crearVistaJugador(jugador, inflater);
+                    fila.addView(celda);
                 }
+
+                if (i < 6) tableTitulares.addView(fila);
             }
 
-            for (int i = 0; i < banquilloViews.size(); i++) {
-                int index = i + 5;
-                if (index < jugadores.size()) {
-                    mostrarJugadorEnVista(banquilloViews.get(i), jugadores.get(index));
-                } else {
-                    limpiarVistaJugador(banquilloViews.get(i));
-                }
+            //Suplentes.
+            for (int i = 5; i < jugadoresObservados.size(); i++) {
+                TableRow fila = new TableRow(requireContext());
+                fila.setGravity(Gravity.CENTER);
+                View celda = crearVistaJugador(jugadoresObservados.get(i), inflater);
+                fila.addView(celda);
+                tableSuplentes.addView(fila);
             }
         });
-
         return view;
     }
 
-    private void mostrarJugadorEnVista(View jugadorView, Jugador jugador) {
-        ImageView foto = jugadorView.findViewById(R.id.fotoJugadorID);
-        TextView texto = jugadorView.findViewById(R.id.nombreJugadorID);
+    private View crearVistaJugador(Jugador jugador, LayoutInflater inflater) {
+        //Contenedor principal.
+        LinearLayout layout = new LinearLayout(requireContext());
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setGravity(Gravity.CENTER);
+        layout.setPadding(15, 15, 15, 15);
+        layout.setLayoutParams(new TableRow.LayoutParams(
+                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT,
+                1f
+        ));
 
+        //Izquierda.
+        LinearLayout izquierda = new LinearLayout(requireContext());
+        izquierda.setOrientation(LinearLayout.VERTICAL);
+        izquierda.setGravity(Gravity.CENTER_HORIZONTAL);
+        izquierda.setPadding(5, 0, 8, 0);
+
+        TextView posicion = new TextView(requireContext());
+        posicion.setText(jugador.getPosicion());
+        posicion.setTextColor(Color.WHITE);
+        posicion.setTextSize(15);
+        posicion.setTypeface(null, Typeface.BOLD);
+
+        ImageView escudo = new ImageView(requireContext());
+        escudo.setLayoutParams(new ViewGroup.LayoutParams(100, 100));
+        Picasso.get().load(jugador.getEscudo()).into(escudo);
+
+        izquierda.addView(posicion);
+        izquierda.addView(escudo);
+
+        //Centro.
+        LinearLayout centro = new LinearLayout(requireContext());
+        centro.setOrientation(LinearLayout.VERTICAL);
+        centro.setGravity(Gravity.CENTER_HORIZONTAL);
+        centro.setPadding(5, 0, 8, 0);
+
+        ImageView foto = new ImageView(requireContext());
+        foto.setLayoutParams(new ViewGroup.LayoutParams(300, 300));
         Picasso.get().load(jugador.getFoto()).into(foto);
 
-        String descripcion = jugador.getPosicion() + "\n" +
-                jugador.getValor_carta() + "\n" +
-                jugador.getNombre();
-        texto.setText(descripcion);
+        TextView nombre = new TextView(requireContext());
+        nombre.setText(jugador.getNombre());
+        nombre.setTextColor(Color.WHITE);
+        nombre.setTextSize(15);
+        nombre.setHeight(50);
+        nombre.setWidth(100);
+        nombre.setTypeface(null, Typeface.BOLD);
+        nombre.setGravity(Gravity.CENTER);
+
+        centro.addView(foto);
+        centro.addView(nombre);
+
+        //Derecha.
+        TextView media = new TextView(requireContext());
+        media.setText(String.valueOf(jugador.getValor_carta()));
+        media.setTextColor(Color.WHITE);
+        media.setTextSize(15);
+        media.setTypeface(null, Typeface.BOLD);
+        media.setPadding(5, 0, 0, 0);
+
+        layout.addView(izquierda);
+        layout.addView(centro);
+        layout.addView(media);
+
+        // Animación: fade in + traslación desde abajo
+        layout.setAlpha(0f);
+        layout.setTranslationY(50); // ligeramente desplazado hacia abajo
+        layout.animate()
+                .alpha(1f)
+                .translationY(0)
+                .setDuration(500)
+                .start();
+        return layout;
     }
-
-    private void limpiarVistaJugador(View jugadorView) {
-        ImageView foto = jugadorView.findViewById(R.id.fotoJugadorID);
-        TextView texto = jugadorView.findViewById(R.id.nombreJugadorID);
-
-        foto.setImageResource(R.drawable.ic_launcher_foreground);
-        texto.setText("");
-    }
-
-
 }

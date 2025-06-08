@@ -15,9 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String urlJugadores = "https://api.myjson.online/v1/records/f8023be6-48e4-4f1d-ab57-90e2ced1c118";
     private SharedViewModel sharedViewModel;
-    private static final int REQUEST_CODE_JUGADOR_COMPRADO = 1001;
+    private static final int JUGADOR_COMPRADO = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +66,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JugadorDetallado.class);
         intent.putExtra("jugador", jugador);
         intent.putExtra("estadisticas", estadisticas);
-        startActivityForResult(intent, REQUEST_CODE_JUGADOR_COMPRADO);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_JUGADOR_COMPRADO && resultCode == RESULT_OK && data != null) {
-            Jugador jugadorComprado = data.getParcelableExtra("jugadorComprado");
-            if (jugadorComprado != null) sharedViewModel.agregarJugadorComprado(this, jugadorComprado);
-        }
+        startActivityForResult(intent, JUGADOR_COMPRADO);
     }
 }

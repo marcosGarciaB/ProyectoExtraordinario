@@ -7,12 +7,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SharedViewModel extends ViewModel {
 
     private final MutableLiveData<Integer> botonSeleccionado = new MutableLiveData<>();
     private final MutableLiveData<ArrayList<Jugador>> jugadoresComprados = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<Integer> dineroDisponible = new MutableLiveData<>();
+    private final MutableLiveData<Map<String, String>> escudoSeleccionado = new MutableLiveData<>();
 
     //Para los distintos fragments.
     public void setBotonSeleccionado(int botonID) {
@@ -53,20 +56,22 @@ public class SharedViewModel extends ViewModel {
         }
     }
 
-    public void setListaJugadoresComprados(ArrayList<Jugador> jugadores) {
-        jugadoresComprados.setValue(jugadores);
+    //Para el equipo escogido.
+    public void setEscudoSeleccionado(String nombre, String url) {
+        Map<String, String> map = new HashMap<>();
+        map.put("nombre", nombre);
+        map.put("url", url);
+        escudoSeleccionado.setValue(map);
+    }
+
+    public MutableLiveData<Map<String, String>> getEscudoSeleccionado() {
+        return escudoSeleccionado;
     }
 
     //Para el dinero de la barra de tareas.
-    public void dineroJugadorVendido(Context context, int dinero) {
-
-    }
-
-    public void dineroJugadorComprado(Context context, int dinero) {
-
-    }
-
-    public void obtenerDinero(Context context, int dinero) {
+    public void setDineroDisponible(Context context, int dinero) {
         dineroDisponible.setValue(dinero);
     }
+
+    public int get
 }

@@ -5,4 +5,15 @@
     <color name="colorAccent">#FF4081</color>
     <color name="black">#000000</color>
     <color name="verde">#4CAF50</color>
+
+    <color name="marmol">#3CFF0202</color>
+
+    <!-- Paleta moderna -->
+    <color name="primary">#1E88E5</color>         <!-- Azul moderno -->
+    <color name="primaryDark">#1565C0</color>     <!-- Azul oscuro -->
+    <color name="accent">#FF4081</color>          <!-- Rosa acento -->
+
+    <!-- Fondo personalizado -->
+    <color name="backgroundStart">#F5F7FA</color> <!-- Gris muy claro -->
+    <color name="backgroundEnd">#C3CFE2</color>
 </resources>

@@ -30,12 +30,6 @@
                 android:text="Cambiar nombre de usuario"/>
 
             <Button
-                android:id="@+id/btCambiarEquipoID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cambiar equipo favorito"/>
-
-            <Button
                 android:id="@+id/btCambiarIdiomaID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

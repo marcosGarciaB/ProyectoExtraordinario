@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,8 @@ public class FragmentEscudo extends Fragment {
     private int ligaIndex = 0;
     private int equipoIndex = 0;
 
+    private SharedViewModel sharedViewModel;
+
     public FragmentEscudo() {
         // Required empty public constructor
     }
@@ -72,6 +75,8 @@ public class FragmentEscudo extends Fragment {
         ibNext = view.findViewById(R.id.siguienteID);
         btConfirmar = view.findViewById(R.id.confirmarID);
 
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         consultaEscudos(getContext());
 
         ibNext.setOnClickListener(v -> {
@@ -92,7 +97,6 @@ public class FragmentEscudo extends Fragment {
             if (!ligasList.isEmpty()) {
                 if (equipoIndex > 0) {
                     equipoIndex--;
-
                 } else if (ligaIndex > 0) {
                     ligaIndex--;
                     equipoIndex = ligasList.get(ligaIndex).getEquipos().size() - 1;
@@ -101,10 +105,15 @@ public class FragmentEscudo extends Fragment {
             }
         });
 
-        //Poner un botón para seleccionar el escudo y que se actualice en el nombre, con un aviso de que se ha actualizado
-        //correctamente.
         btConfirmar.setOnClickListener(v -> {
-            Toast.makeText(getContext(), " Se ha confirmado el escudo", Toast.LENGTH_SHORT).show();
+            String nombre = ligasList.get(ligaIndex).getEquipos().get(equipoIndex);
+            String url = ligasList.get(ligaIndex).getEscudos().get(equipoIndex);
+
+            Preferencias.guardarNombreEquipo(getContext(), nombre);
+            Preferencias.guardarEscudoEquipo(getContext(), url);
+
+            sharedViewModel.setEscudoSeleccionado(nombre, url);
+            Toast.makeText(getContext(), R.string.escudo_confirmado, Toast.LENGTH_SHORT).show();
         });
 
         return view;
@@ -137,18 +146,13 @@ public class FragmentEscudo extends Fragment {
                                     urlEscudo = equiposArray.getJSONObject(j).getString("escudo");
                                     escudosList.add(urlEscudo);
                                 }
-
                                 Liga liga = new Liga(nombreLiga, new ArrayList<>(escudosList), new ArrayList<>(nombresEquipos));
-                                Log.e("TAG", "onResponse: " + liga.toString());
 
                                 ligasList.add(liga);
                                 escudosList.clear();
                                 nombresEquipos.clear();
                             }
-
                             seleccionEquipo();
-
-
 
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -166,7 +170,7 @@ public class FragmentEscudo extends Fragment {
 
     public void seleccionEquipo() {
         if (!ligasList.isEmpty()) {
-            Liga liga = ligasList.get(ligaIndex); //
+            Liga liga = ligasList.get(ligaIndex);
             tvLiga.setText(liga.getNombre());
 
             if (!liga.getEquipos().isEmpty() && !liga.getEscudos().isEmpty()) {
