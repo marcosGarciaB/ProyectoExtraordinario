@@ -58,7 +58,6 @@ public class JugadorDetallado extends AppCompatActivity {
         btVolver.setOnClickListener(v -> finish());
 
         sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
-        comprarJugador();
 
         btComprar.setOnClickListener(v -> {
             if (jugador != null) {
@@ -115,19 +114,6 @@ public class JugadorDetallado extends AppCompatActivity {
                 btComprar.setBackgroundColor(Color.GREEN);
                 btComprar.setEnabled(true);
             }
-        }
-    }
-
-    private void comprarJugador() {
-        if (jugador != null) {
-            String valorMercado = jugador.getValor_mercado();
-            String numeroLimpio = valorMercado.replaceAll("[^\\d]", "");
-
-            long numero = Long.parseLong(numeroLimpio);
-
-            sharedViewModel.getDineroDisponible().observe(dinero ->
-
-                Log.e("PROBANDO DINERO DEL JUGADOR", "comprarJugador: " + sharedViewModel.getDineroDisponible().getValue());
         }
     }
 }

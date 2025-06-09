@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">ProjetExtraordinaire</string>
+
+    <string name="seguir_jugador">🔔 Suivre le joueur</string>
+    <string name="siguiendo_jugador">✅ Suivi </string>
+
+    <string name="nombre_jugador">👤 Nom : </string>
+    <string name="posicion_jugador">📌 Position : </string>
+    <string name="valor_mercado">💰 Valeur marchande : </string>
+    <string name="valor_fifa">🎮 Valeur FIFA : </string>
+    <string name="ritmo_jugador">⚡ Vitesse : </string>
+    <string name="regate_jugador">🎯 Dribble :  </string>
+    <string name="tiro_jugador">🔥 Tir : </string>
+    <string name="defensa_jugador">🛡️ Défense : </string>
+    <string name="pase_jugador">🎯 Passe : </string>
+    <string name="fisico_jugador">💪 Physique : </string>
+
+    <string name="boton_comprar_jugador">Acheter le joueur</string>
+    <string name="boton_comprar_jugador_comprado">Joueur possédé</string>
+    <string name="boton_volver">Retour</string>
+
+    <string name="activity_siguiendo">Vous ne suivez aucun joueur</string>
+    <string name="activity_ventas">Vous n avez acheté aucun joueur</string>
+    <string name="jugador_plantilla_item">Vendre</string>
+    <string name="estadisticas">📊 Statistiques :</string>
+
+    <string name="escudo_confirmado">L écusson a été confirmé</string>
+
+    <string name="equipo_sin_confirmar">Vous n avez pas encore choisi d équipe.</string>
+    <string name="titulo_alert">Entrez votre nom d utilisateur</string>
+    <string name="hint_alert">Nom d utilisateur</string>
+    <string name="confirmar_alert">Confirmer</string>
+    <string name="cancelar_alert">Annuler</string>
+    <string name="nombre_vacio_alert">Veuillez entrer un nom</string>
+    <string name="nombre_usuario">Bienvenue </string>
+    <string name="equipo_predeterminado">Sélectionnez votre équipe favorite</string>
+    <string name="desc_escudo">Écusson de l équipe</string>
+
+    <string name="texto_ajustes">Paramètres du compte</string>
+    <string name="bt_cambio_nombre">Changer le nom d utilisateur</string>
+    <string name="bt_cambio_idioma">Changer la langue préférée</string>
+    <string name="texto_otros">Autres </string>
+    <string name="bt_salir">Quitter</string>
+
+    <string name="bt_confirmar_escudo_principal">Confirmer l équipe</string>
+
+    <string name="bt_venta_jugadores">Vente de joueurs</string>
+    <string name="bt_siguiendo_jugadores">Liste de suivi</string>
+
+    <string name="texto_titulares">Titulaires</string>
+    <string name="texto_banquillo">Banc</string>
+</resources>

@@ -142,6 +142,4 @@ public class Preferencias {
         SharedPreferences prefs = context.getSharedPreferences(PREF_ESCUDO, Context.MODE_PRIVATE);
         return prefs.getString(CLAVE_ESCUDO, "");
     }
-
-
 }

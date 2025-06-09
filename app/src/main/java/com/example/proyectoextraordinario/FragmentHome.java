@@ -1,5 +1,6 @@
 package com.example.proyectoextraordinario;
 
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -35,6 +37,11 @@ public class FragmentHome extends Fragment {
     private SharedViewModel sharedViewModel;
     private ImageView imgEscudo;
     private TextView tvNombreEquipo, tvNombreUsuario;
+    private MediaPlayer mediaPlayer;
+    private int index = 0;
+    private int[] canciones = {R.raw.acordeon, R.raw.pacman, R.raw.intro, R.raw.coche};
+    private ImageButton btPlay, btSiguiente, btAnterior;
+    private TextView tvTitulo;
 
     public FragmentHome() {
         // Required empty public constructor
@@ -43,6 +50,12 @@ public class FragmentHome extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        iniciarMusica();
     }
 
     @Override
@@ -55,6 +68,11 @@ public class FragmentHome extends Fragment {
         imgEscudo = view.findViewById(R.id.imgEscudoHomeID);
         tvNombreEquipo = view.findViewById(R.id.nombreEquipoHomeID);
         tvNombreUsuario = view.findViewById(R.id.nombreUsuarioID);
+
+        btAnterior = view.findViewById(R.id.anteriorIDHOME);
+        btPlay = view.findViewById(R.id.playIDHOME);
+        btSiguiente = view.findViewById(R.id.siguienteIDHOME);
+        tvTitulo = view.findViewById(R.id.tituloCancionID);
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
@@ -78,6 +96,8 @@ public class FragmentHome extends Fragment {
         } else {
             tvNombreEquipo.setText(R.string.equipo_sin_confirmar);
         }
+
+
         return view;
     }
 
@@ -150,5 +170,56 @@ public class FragmentHome extends Fragment {
             });
         });
         dialog.show();
+    }
+
+    private void iniciarMusica() {
+        mediaPlayer = MediaPlayer.create(getContext(), canciones[index]);
+        actualizarTituloCancion();
+
+        btPlay.setOnClickListener(v -> {
+            if (mediaPlayer.isPlaying()) {
+                mediaPlayer.pause();
+                btPlay.setImageResource(R.drawable.play);
+            } else {
+                mediaPlayer.start();
+                btPlay.setImageResource(R.drawable.pause);
+            }
+        });
+
+        btSiguiente.setOnClickListener(v -> {
+            cambiarCancion(1);
+        });
+
+        btAnterior.setOnClickListener(v -> {
+            cambiarCancion(-1);
+        });
+
+        mediaPlayer.setOnCompletionListener(mp -> cambiarCancion(1));
+    }
+
+    private void cambiarCancion(int cambio) {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
+
+        index += cambio;
+
+        if (index >= canciones.length) {
+            index = 0;
+        } else if (index < 0) {
+            index = canciones.length - 1;
+        }
+
+        mediaPlayer = MediaPlayer.create(getContext(), canciones[index]);
+        mediaPlayer.start();
+        btPlay.setImageResource(R.drawable.pause);
+        actualizarTituloCancion();
+
+        mediaPlayer.setOnCompletionListener(mp -> cambiarCancion(1));
+    }
+
+    private void actualizarTituloCancion() {
+        String[] titulos = {"Acordeón", "Pacman", "Intro", "Coche"};
+        tvTitulo.setText(titulos[index]);
     }
 }

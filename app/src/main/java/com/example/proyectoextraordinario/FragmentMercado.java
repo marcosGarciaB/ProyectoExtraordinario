@@ -31,9 +31,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-//opción de venderlos, que se gaste el dinero
-// y en la plantilla poder poner algunos en favoritos y que cuando pinche sobre ellos salgan las estadísticas.
-
 public class FragmentMercado extends Fragment {
     private Button btSiguiendo, btVentaJugador;
     private ListView listView;
@@ -98,6 +95,7 @@ public class FragmentMercado extends Fragment {
         String[] opciones = {"Posiciones", "Defensas", "Centrocampistas", "Delanteros", "Todos"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, opciones);
         spinner.setAdapter(spinnerAdapter);
+        spinner.setSelection(4);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

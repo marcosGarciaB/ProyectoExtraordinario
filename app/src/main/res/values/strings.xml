@@ -23,7 +23,6 @@
     <string name="boton_volver">Volver</string>
 
     <!-- Cosas random. -->
-    <string name="dinero_barra_tareas"> 💰 900.000.000 </string>
     <string name="activity_siguiendo">No estás siguiendo a ningún jugador</string>
     <string name="activity_ventas">No has comprado a ningún jugador</string>
     <string name="jugador_plantilla_item">Vender</string>
@@ -43,5 +42,22 @@
     <string name="equipo_predeterminado">Selecciona tu equipo favorito</string>
     <string name="desc_escudo">Escudo del equipo</string>
 
+    <!-- Fragment Ajustes. -->
+    <string name="texto_ajustes">Ajustes de cuenta</string>
+    <string name="bt_cambio_nombre">Cambiar nombre de usuario</string>
+    <string name="bt_cambio_idioma">Cambiar el idioma preferido</string>
+    <string name="texto_otros">Otros </string>
+    <string name="bt_salir">Salir</string>
+
+    <!-- Fragment Escudo. -->
+    <string name="bt_confirmar_escudo_principal">Confirmar Equipo</string>
+
+    <!-- Fragment Mercado. -->
+    <string name="bt_venta_jugadores">Venta de jugadores</string>
+    <string name="bt_siguiendo_jugadores">Lista de siguiendo</string>
+
+    <!-- Fragment Mercado. -->
+    <string name="texto_titulares">Titulares</string>
+    <string name="texto_banquillo">Banquillo</string>
 
 </resources>
