@@ -1,2 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">AußergewöhnlichesProjekt</string>
+
+    <string name="seguir_jugador">🔔 Spieler folgen</string>
+    <string name="siguiendo_jugador">✅ Folgend </string>
+
+    <string name="nombre_jugador">👤 Name: </string>
+    <string name="posicion_jugador">📌 Position: </string>
+    <string name="valor_mercado">💰 Marktwert: </string>
+    <string name="valor_fifa">🎮 FIFA-Wert: </string>
+    <string name="ritmo_jugador">⚡ Tempo: </string>
+    <string name="regate_jugador">🎯 Dribbling:  </string>
+    <string name="tiro_jugador">🔥 Schuss: </string>
+    <string name="defensa_jugador">🛡️ Verteidigung: </string>
+    <string name="pase_jugador">🎯 Pass: </string>
+    <string name="fisico_jugador">💪 Physis: </string>
+
+    <string name="boton_comprar_jugador">Spieler kaufen</string>
+    <string name="boton_comprar_jugador_comprado">Spieler im Besitz</string>
+    <string name="boton_volver">Zurück</string>
+
+    <string name="activity_siguiendo">Du folgst keinem Spieler</string>
+    <string name="activity_ventas">Du hast keinen Spieler gekauft</string>
+    <string name="jugador_plantilla_item">Verkaufen</string>
+    <string name="estadisticas">📊 Statistik:</string>
+
+    <string name="escudo_confirmado">Das Wappen wurde bestätigt</string>
+
+    <string name="equipo_sin_confirmar">Du hast noch kein Team gewählt.</string>
+    <string name="titulo_alert">Gib deinen Benutzernamen ein</string>
+    <string name="hint_alert">Benutzername</string>
+    <string name="confirmar_alert">Bestätigen</string>
+    <string name="cancelar_alert">Abbrechen</string>
+    <string name="nombre_vacio_alert">Bitte gib einen Namen ein</string>
+    <string name="nombre_usuario">Willkommen </string>
+    <string name="equipo_predeterminado">Wähle dein Lieblingsteam</string>
+    <string name="desc_escudo">Teamwappen</string>
+
+    <string name="texto_ajustes">Kontoeinstellungen</string>
+    <string name="bt_cambio_nombre">Benutzernamen ändern</string>
+    <string name="bt_cambio_idioma">Bevorzugte Sprache ändern</string>
+    <string name="texto_otros">Andere </string>
+    <string name="bt_salir">Beenden</string>
+
+    <string name="bt_confirmar_escudo_principal">Team bestätigen</string>
+
+    <string name="bt_venta_jugadores">Spielerverkäufe</string>
+    <string name="bt_siguiendo_jugadores">Beobachtungsliste</string>
+
+    <string name="texto_titulares">Startelf</string>
+    <string name="texto_banquillo">Ersatzbank</string>
+
+</resources>

@@ -81,5 +81,4 @@ public class AdaptadorPlantilla extends BaseAdapter {
         this.jugadores.addAll(nuevosJugadores);
         notifyDataSetChanged();
     }
-
 }

@@ -17,13 +17,17 @@
             android:padding="16dp">
 
             <TextView
+                android:id="@+id/tvTitularesID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titulares"
+                android:text="@string/texto_titulares"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:padding="4dp"/>
 
             <TableLayout
                 android:id="@+id/tableLayoutTitulares"
@@ -33,13 +37,17 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
+                android:id="@+id/tvBanquilloID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Banquillo"
+                android:text="@string/texto_banquillo"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.05"
+                android:padding="4dp"/>
 
             <TableLayout
                 android:id="@+id/tableLayoutSuplentes"

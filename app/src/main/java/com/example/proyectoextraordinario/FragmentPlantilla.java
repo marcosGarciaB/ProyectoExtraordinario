@@ -22,7 +22,8 @@ import com.squareup.picasso.Picasso;
 public class FragmentPlantilla extends Fragment {
 
     private SharedViewModel sharedViewModel;
-
+    private TableLayout tableTitulares, tableSuplentes;
+    private TextView textTitulares, textBanquillo;
     public FragmentPlantilla() {
         // Required empty public constructor
     }
@@ -31,8 +32,11 @@ public class FragmentPlantilla extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_plantilla, container, false);
 
-        TableLayout tableTitulares = view.findViewById(R.id.tableLayoutTitulares);
-        TableLayout tableSuplentes = view.findViewById(R.id.tableLayoutSuplentes);
+        tableTitulares = view.findViewById(R.id.tableLayoutTitulares);
+        tableSuplentes = view.findViewById(R.id.tableLayoutSuplentes);
+        textTitulares = view.findViewById(R.id.tvTitularesID);
+        textBanquillo = view.findViewById(R.id.tvBanquilloID);
+
         sharedViewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
 
         sharedViewModel.setJugadoresCompradosDesdePreferencias(requireContext());
@@ -40,6 +44,12 @@ public class FragmentPlantilla extends Fragment {
         sharedViewModel.getJugadoresComprados().observe(getViewLifecycleOwner(), jugadoresObservados -> {
             tableTitulares.removeAllViews();
             tableSuplentes.removeAllViews();
+
+            int titularesCount = Math.min(jugadoresObservados.size(), 5);
+            int suplentesCount = jugadoresObservados.size() - titularesCount;
+
+            textTitulares.setVisibility(titularesCount > 0 ? View.VISIBLE : View.GONE);
+            textBanquillo.setVisibility(suplentesCount > 0 ? View.VISIBLE : View.GONE);
 
             for (int i = 0; i < jugadoresObservados.size(); i += 2) {
                 TableRow fila = new TableRow(requireContext());

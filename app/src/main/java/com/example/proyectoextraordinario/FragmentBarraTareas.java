@@ -1,5 +1,6 @@
 package com.example.proyectoextraordinario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +18,6 @@ public class FragmentBarraTareas extends Fragment {
 
     private ImageButton btPlantilla, btMercado, btEscudo, btHome, btAjustes;
     private SharedViewModel sharedViewModel;
-    private TextView tvDinero;
 
     public FragmentBarraTareas() {
         // Required empty public constructor
@@ -41,7 +41,6 @@ public class FragmentBarraTareas extends Fragment {
         btEscudo = view.findViewById(R.id.escudoID);
         btHome = view.findViewById(R.id.homeID);
         btAjustes = view.findViewById(R.id.ajustesID);
-        tvDinero = view.findViewById(R.id.dineroID);
 
         btHome.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(1));
         btEscudo.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(2));
@@ -49,20 +48,6 @@ public class FragmentBarraTareas extends Fragment {
         btPlantilla.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(4));
         btAjustes.setOnClickListener(v -> sharedViewModel.setBotonSeleccionado(5));
 
-        tvDinero.setOnClickListener(v -> Toast.makeText(getContext(), "Es el dinero que tienes disponible.", Toast.LENGTH_LONG).show());
-
-        getDinero();
-
         return view;
     }
-
-    private void getDinero() {
-        String dineroTexto = getResources().getString(R.string.dinero_barra_tareas);
-        String numeroLimpio = dineroTexto.replaceAll("[^\\d]", "");
-        long dinero = Long.parseLong(numeroLimpio);
-
-        sharedViewModel.setDineroDisponible(getContext(), dinero);
-        Log.d("TAG", "getDinero: " + numeroLimpio);
-    }
-
 }

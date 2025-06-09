@@ -17,8 +17,7 @@ import android.widget.Toast;
 
 public class FragmentAjustes extends Fragment {
 
-    private Button btCambiarNombre, btCambiarIdioma, btModoOscuro, btSalir;
-    private SwitchCompat switchPartidos, switchNoticias;
+    private Button btCambiarNombre, btCambiarIdioma, btSalir;
 
     public FragmentAjustes() {
         // Required empty public constructor
@@ -36,11 +35,7 @@ public class FragmentAjustes extends Fragment {
 
         btCambiarNombre = view.findViewById(R.id.btCambiarNombreID);
         btCambiarIdioma = view.findViewById(R.id.btCambiarIdiomaID);
-        btModoOscuro = view.findViewById(R.id.btModoOscuroID);
         btSalir = view.findViewById(R.id.btSalirID);
-
-        switchPartidos = view.findViewById(R.id.switchPartidosID);
-        switchNoticias = view.findViewById(R.id.switchNoticiasID);
 
         btCambiarNombre.setOnClickListener(v -> {
             mostrarDialogoNombreUsuario();

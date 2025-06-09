@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ajustes de cuenta"
+                android:text="@string/texto_ajustes"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp"/>
@@ -27,56 +27,28 @@
                 android:id="@+id/btCambiarNombreID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cambiar nombre de usuario"/>
+                android:text="@string/bt_cambio_nombre"/>
 
             <Button
                 android:id="@+id/btCambiarIdiomaID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cambiar idioma"/>
+                android:text="@string/bt_cambio_idioma"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notificaciones"
+                android:text="@string/texto_otros"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="24dp"/>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchPartidosID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Recordatorios de partidos"/>
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchNoticiasID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Noticias del equipo favorito"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Otros"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginTop="24dp"/>
-
-            <Button
-                android:id="@+id/btModoOscuroID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Activar modo oscuro"/>
 
             <Button
                 android:id="@+id/btSalirID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Salir"
+                android:text="@string/bt_salir"
                 android:backgroundTint="@android:color/holo_red_light"/>
-
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

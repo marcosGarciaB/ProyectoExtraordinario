@@ -1,4 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ExtraordinaryProject</string>
+
+    <string name="seguir_jugador">🔔 Follow player</string>
+    <string name="siguiendo_jugador">✅ Following </string>
+
+    <string name="nombre_jugador">👤 Name: </string>
+    <string name="posicion_jugador">📌 Position: </string>
+    <string name="valor_mercado">💰 Market value: </string>
+    <string name="valor_fifa">🎮 FIFA value: </string>
+    <string name="ritmo_jugador">⚡ Pace: </string>
+    <string name="regate_jugador">🎯 Dribbling:  </string>
+    <string name="tiro_jugador">🔥 Shooting: </string>
+    <string name="defensa_jugador">🛡️ Defense: </string>
+    <string name="pase_jugador">🎯 Passing: </string>
+    <string name="fisico_jugador">💪 Physical: </string>
+
+    <string name="boton_comprar_jugador">Buy player</string>
+    <string name="boton_comprar_jugador_comprado">Player owned</string>
+    <string name="boton_volver">Back</string>
+
+    <string name="activity_siguiendo">You are not following any player</string>
+    <string name="activity_ventas">You have not bought any player</string>
+    <string name="jugador_plantilla_item">Sell</string>
+    <string name="estadisticas">📊 Statistics:</string>
+
+    <string name="escudo_confirmado">The badge has been confirmed</string>
+
+    <string name="equipo_sin_confirmar">You havent chosen a team yet.</string>
+    <string name="titulo_alert">Enter your username</string>
+    <string name="hint_alert">Username</string>
+    <string name="confirmar_alert">Confirm</string>
+    <string name="cancelar_alert">Cancel</string>
+    <string name="nombre_vacio_alert">Please enter a name</string>
+    <string name="nombre_usuario">Welcome </string>
+    <string name="equipo_predeterminado">Select your favorite team</string>
+    <string name="desc_escudo">Team badge</string>
+
+    <string name="texto_ajustes">Account settings</string>
+    <string name="bt_cambio_nombre">Change username</string>
+    <string name="bt_cambio_idioma">Change preferred language</string>
+    <string name="texto_otros">Others </string>
+    <string name="bt_salir">Exit</string>
+
+    <string name="bt_confirmar_escudo_principal">Confirm Team</string>
+
+    <string name="bt_venta_jugadores">Player Sales</string>
+    <string name="bt_siguiendo_jugadores">Following List</string>
+
+    <string name="texto_titulares">Starters</string>
+    <string name="texto_banquillo">Bench</string>
 
 </resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btVolver2ID_venta"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#F44336"
+        android:text="@string/boton_volver"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/texto_vacio_venta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_ventas"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="16dp"/>
+
+    <ListView
+        android:layout_marginTop="25dp"
+        android:id="@+id/listaJugadoresSiguiendo_venta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -57,13 +57,6 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp"/>
 
-        <TextView
-            android:id="@+id/dineroID"
-            android:text="@string/dinero_barra_tareas"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <ImageButton
             android:id="@+id/ajustesID"
             android:src="@android:drawable/ic_menu_manage"
